@@ -5,27 +5,32 @@ import ChatMessages from './components/ChatMessages';
 import './App.css'
 
 function App() {
-  const [chatMessages, setChatMessages] = useState([{
-    message: 'hello chatbot',
-    sender: 'user',
-    id: 'id1',
-    time: 1736127288920
-  }, {
-    message: 'Hello! How can i help you',
-    sender: 'robot',
-    id: 'id2',
-    time: 1736127291230
-  }, {
-    message: 'can you get me todays date?',
-    sender: 'user',
-    id: 'id3',
-    time: 1736127385356
-  }, {
-    message: 'Today is September 27',
-    sender: 'robot',
-    id: 'id4',
-    time: 1736127385500
-  }]);
+  const [chatMessages, setChatMessages] = useState(JSON.parse(localStorage.getItem('messages-chatbot')) ||
+    [{
+      message: 'hello chatbot',
+      sender: 'user',
+      id: 'id1',
+      time: 1736127288920
+    }, {
+      message: 'Hello! How can i help you',
+      sender: 'robot',
+      id: 'id2',
+      time: 1736127291230
+    }, {
+      message: 'can you get me todays date?',
+      sender: 'user',
+      id: 'id3',
+      time: 1736127385356
+    }, {
+      message: 'Today is September 27',
+      sender: 'robot',
+      id: 'id4',
+      time: 1736127385500
+    }]);
+
+  useEffect(() => {
+    localStorage.setItem('messages-chatbot', JSON.stringify(chatMessages));
+  }, [chatMessages]);
 
   useEffect(() => {
     Chatbot.addResponses({
